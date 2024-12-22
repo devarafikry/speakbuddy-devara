@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Edison Android Exercise</string>
+    <string name="fact_screen_length_label">Length: %1$s</string>
+    <string name="empty_card_prompt">Click start to see Cat Facts!</string>
+    <string name="fact_screen_default_prompt_text_button">Update Fact</string>
+    <string name="fact_screen_empty_state_prompt_text_button">Start</string>
 </resources>
