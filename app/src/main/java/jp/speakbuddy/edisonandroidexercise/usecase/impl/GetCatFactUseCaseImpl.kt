@@ -50,6 +50,10 @@ class GetCatFactUseCaseImpl @Inject constructor(
                     errMessage = "${result.errMessage}. Datasource: ${result.dataSourceType}"
                 )
             }
+
+            is FactDataModelResult.Empty -> {
+                return FactModelResult.Empty
+            }
         }
     }
 

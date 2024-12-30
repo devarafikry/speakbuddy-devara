@@ -41,6 +41,10 @@ class FactViewModel @Inject constructor(
                         errMessage = factResult.errMessage
                     )
                 }
+
+                is FactModelResult.Empty -> {
+                    _factStateFlow.value = FactModelViewData.Empty
+                }
             }
         }
     }
@@ -71,6 +75,10 @@ class FactViewModel @Inject constructor(
                     _factStateFlow.value = FactModelViewData.Error(
                         errMessage = factResult.errMessage
                     )
+                }
+
+                is FactModelResult.Empty -> {
+                    _factStateFlow.value = FactModelViewData.Empty
                 }
             }
         }

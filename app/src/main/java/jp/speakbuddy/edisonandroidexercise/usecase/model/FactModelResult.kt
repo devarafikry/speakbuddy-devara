@@ -7,4 +7,5 @@ sealed class FactModelResult {
     data class Error(
         val errMessage: String,
     ): FactModelResult()
+    data object Empty: FactModelResult()
 }

@@ -48,10 +48,7 @@ class CatFactRepository(
                     )
                 )
             } else {
-                return FactDataModelResult.Error(
-                    errMessage = "Fact database is empty!",
-                    dataSourceType = getCacheDataSource()
-                )
+                return FactDataModelResult.Empty
             }
         } catch (e: Exception) {
             return FactDataModelResult.Error(

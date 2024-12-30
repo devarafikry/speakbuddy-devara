@@ -8,4 +8,5 @@ sealed class FactDataModelResult() {
         val errMessage: String,
         val dataSourceType: FactDataSourceType
     ): FactDataModelResult()
+    data object Empty: FactDataModelResult()
 }
