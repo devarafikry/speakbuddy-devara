@@ -42,7 +42,7 @@ class CatFactStartupBenchmark {
                 startActivityAndWait()
                 val button = device.findObject(By.res("button_fact"))
                 button.click()
-                device.wait(Until.findObject(By.res("fact_card")), 5000);
+                device.wait(Until.findObject(By.res("fact_card")), 20000);
                 sleep(2000)
             }
         ) {
