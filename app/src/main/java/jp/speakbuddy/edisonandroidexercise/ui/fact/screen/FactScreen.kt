@@ -94,9 +94,11 @@ fun FactScreen(
                         factModelViewData = factModelViewData
                     )
                     val isMultipleCatsVisible = remember { mutableStateOf(false) }
-                    LaunchedEffect(Unit) {
-                        delay(10)
-                        isMultipleCatsVisible.value = true
+                    if (factModelViewData.factModel.multipleCats) {
+                        LaunchedEffect(Unit) {
+                            delay(10)
+                            isMultipleCatsVisible.value = true
+                        }
                     }
 
                     this@Column.AnimatedVisibility(

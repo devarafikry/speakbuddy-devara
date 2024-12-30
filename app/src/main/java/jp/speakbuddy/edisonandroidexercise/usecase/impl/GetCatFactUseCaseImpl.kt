@@ -34,7 +34,7 @@ class GetCatFactUseCaseImpl @Inject constructor(
                             length = result.factDataModel.length,
                             shouldShowLength = result.factDataModel.fact.length > 100
                         ),
-                        multipleCats = result.factDataModel.fact.contains("cats"),
+                        multipleCats = result.factDataModel.fact.lowercase().contains("cats"),
                         source = when(result.factDataModel.datasource) {
                             is FactDataSourceType.Database -> FactModelViewDataSource.Database
                             is FactDataSourceType.Network -> FactModelViewDataSource.Cloud
