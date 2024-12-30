@@ -3,12 +3,13 @@ package jp.speakbuddy.edisonandroidexercise.ui
 import io.mockk.coEvery
 import io.mockk.mockk
 import jp.speakbuddy.edisonandroidexercise.dispatcher.TestDispatcherProvider
-import jp.speakbuddy.edisonandroidexercise.ui.fact.FactViewModel
+import jp.speakbuddy.edisonandroidexercise.domain.FactViewModel
 import jp.speakbuddy.edisonandroidexercise.usecase.GetCatFactUseCase
 import jp.speakbuddy.edisonandroidexercise.usecase.SaveCatFactUseCase
 import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModel
 import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModelResult
 import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModelViewData
+import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModelViewDataSource
 import jp.speakbuddy.edisonandroidexercise.usecase.model.LengthInfo
 import org.junit.Test
 
@@ -20,7 +21,8 @@ class FactViewModelTest {
             length = 5,
             shouldShowLength = false
         ),
-        multipleCats = false
+        multipleCats = false,
+        source = FactModelViewDataSource.Database
     )
 
     val cloudFact = FactModel(
@@ -29,7 +31,8 @@ class FactViewModelTest {
             length = 4,
             shouldShowLength = false
         ),
-        multipleCats = false
+        multipleCats = false,
+        source = FactModelViewDataSource.Cloud
     )
 
     @Test
@@ -51,6 +54,24 @@ class FactViewModelTest {
     }
 
     @Test
+    fun `when viewmodel initialized with database error then fetch state initial data should be error`() {
+        val getCatFactUseCase = mockk<GetCatFactUseCase>()
+        val saveCatFactUseCase = mockk<SaveCatFactUseCase>()
+
+        coEvery { getCatFactUseCase.getCachedFact() } returns FactModelResult.Error("")
+        coEvery { getCatFactUseCase.getNewFact() } returns FactModelResult.Success(cloudFact)
+        coEvery { saveCatFactUseCase.saveCatFact(any()) } returns 0L
+
+        val viewModel = FactViewModel(
+            getCatFactUseCase = getCatFactUseCase,
+            saveCatFactUseCase = saveCatFactUseCase,
+            dispatcherProvider = TestDispatcherProvider()
+        )
+
+        assert((viewModel.factStateFlow.value is FactModelViewData.Error))
+    }
+
+    @Test
     fun `when updateFact with network request success then fetchState should be cloud data`() {
         val getCatFactUseCase = mockk<GetCatFactUseCase>()
         val saveCatFactUseCase = mockk<SaveCatFactUseCase>()
@@ -67,6 +88,25 @@ class FactViewModelTest {
 
         viewModel.updateFact()
         assert((viewModel.factStateFlow.value as FactModelViewData.Data).factModel == cloudFact)
+    }
+
+    @Test
+    fun `when updateFact with network request failed then fetchState should be cloud data`() {
+        val getCatFactUseCase = mockk<GetCatFactUseCase>()
+        val saveCatFactUseCase = mockk<SaveCatFactUseCase>()
+
+        coEvery { getCatFactUseCase.getCachedFact() } returns FactModelResult.Success(cachedFact)
+        coEvery { getCatFactUseCase.getNewFact() } returns FactModelResult.Error(errMessage = "")
+        coEvery { saveCatFactUseCase.saveCatFact(any()) } returns 0L
+
+        val viewModel = FactViewModel(
+            getCatFactUseCase = getCatFactUseCase,
+            saveCatFactUseCase = saveCatFactUseCase,
+            dispatcherProvider = TestDispatcherProvider()
+        )
+
+        viewModel.updateFact()
+        assert((viewModel.factStateFlow.value is FactModelViewData.Error))
     }
 
     @Test

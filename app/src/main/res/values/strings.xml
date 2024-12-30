@@ -4,4 +4,9 @@
     <string name="empty_card_prompt">Click start to see Cat Facts!</string>
     <string name="fact_screen_default_prompt_text_button">Update Fact</string>
     <string name="fact_screen_empty_state_prompt_text_button">Start</string>
+    <string name="fact_card_scroll_prompt">scroll to continue...</string>
+    <string name="fact_card_source">Source: %1$s</string>
+    <string name="fact_screen_error_state_prompt_text_button">Try Again</string>
+    <string name="error_card_prompt">Network Error.</string>
+    <string name="fact_card_fetch_cloud_state">Getting another fact...</string>
 </resources>

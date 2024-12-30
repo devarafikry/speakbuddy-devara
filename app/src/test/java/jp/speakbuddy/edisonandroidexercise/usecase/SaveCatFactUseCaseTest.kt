@@ -5,6 +5,7 @@ import io.mockk.mockk
 import jp.speakbuddy.edisonandroidexercise.data.repository.FactRepository
 import jp.speakbuddy.edisonandroidexercise.usecase.impl.SaveCatFactUseCaseImpl
 import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModel
+import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModelViewDataSource
 import jp.speakbuddy.edisonandroidexercise.usecase.model.LengthInfo
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.test.runTest
@@ -28,7 +29,8 @@ class SaveCatFactUseCaseTest {
                         length = 0,
                         shouldShowLength = false
                     ),
-                    multipleCats = false
+                    multipleCats = false,
+                    source = FactModelViewDataSource.Cloud
                 )
             )
             assertEquals(1L, insertedRow)

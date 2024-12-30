@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.fact
+package jp.speakbuddy.edisonandroidexercise.domain
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,13 +37,16 @@ class FactViewModel @Inject constructor(
                 }
 
                 is FactModelResult.Error -> {
-                    //                    _factStateFlow.value = factResult.factModel
+                    _factStateFlow.value = FactModelViewData.Error(
+                        errMessage = factResult.errMessage
+                    )
                 }
             }
         }
     }
 
     fun updateFact() {
+        _factStateFlow.value = FactModelViewData.Loading
         viewModelScope.launch(dispatcherProvider.default) {
             _syncDataStatus.value = false
             val factResult = getCatFactUseCase.getNewFact()
@@ -65,7 +68,9 @@ class FactViewModel @Inject constructor(
                 }
 
                 is FactModelResult.Error -> {
-                    //                    _factStateFlow.value = factResult.factModel
+                    _factStateFlow.value = FactModelViewData.Error(
+                        errMessage = factResult.errMessage
+                    )
                 }
             }
         }

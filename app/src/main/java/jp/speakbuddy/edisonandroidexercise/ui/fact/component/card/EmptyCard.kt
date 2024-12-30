@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.fact
+package jp.speakbuddy.edisonandroidexercise.ui.fact.component.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,9 +19,9 @@ import coil.compose.AsyncImage
 import jp.speakbuddy.edisonandroidexercise.R
 
 @Composable
-fun EmptyCard() {
+fun EmptyCard(modifier: Modifier = Modifier) {
     Box (
-        modifier = Modifier.size(300.dp, 200.dp)
+        modifier = modifier.then(Modifier.size(300.dp, 200.dp))
     ) {
         if (!LocalInspectionMode.current) {
             AsyncImage(
