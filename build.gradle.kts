@@ -7,4 +7,5 @@ plugins {
 
     kotlin("jvm") version "1.9.24"
     kotlin("plugin.serialization") version "1.9.24"
+    id("com.android.test") version "8.4.0" apply false
 }

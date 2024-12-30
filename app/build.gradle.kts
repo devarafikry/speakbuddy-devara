@@ -30,6 +30,12 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -108,7 +114,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     androidTestImplementation("androidx.room:room-testing:2.5.0")
-
+    implementation("androidx.profileinstaller:profileinstaller:1.4.1")
 }
 
 kapt {

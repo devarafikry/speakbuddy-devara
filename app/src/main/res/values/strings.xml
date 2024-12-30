@@ -9,4 +9,6 @@
     <string name="fact_screen_error_state_prompt_text_button">Try Again</string>
     <string name="error_card_prompt">Error: %1$s</string>
     <string name="fact_card_fetch_cloud_state">Getting another fact…</string>
+    <string name="button_fact">button_fact</string>
+    <string name="fact_card">fact_card</string>
 </resources>

@@ -1,5 +1,6 @@
 package jp.speakbuddy.edisonandroidexercise.ui.fact.component.card
 
+import android.app.Activity
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -27,9 +28,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,13 +47,15 @@ import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModelViewDataSource
 import jp.speakbuddy.edisonandroidexercise.usecase.model.LengthInfo
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FactCard(
     factModel: FactModel?,
     modifier: Modifier = Modifier
 ) {
     Card (
-        modifier = modifier.then(Modifier.size(300.dp, 200.dp)),
+        modifier = modifier
+            .then(Modifier.size(300.dp, 200.dp)),
         colors = CardColors(
             containerColor = Color(0xFFF5E1A4),
             contentColor = Color.Black,
@@ -92,6 +101,8 @@ fun FactCard(
                             .fillMaxSize()
                             .verticalScroll(scrollState)
                             .weight(1f)
+                            .semantics { testTagsAsResourceId = true }
+                            .testTag(stringResource(R.string.fact_card))
                     ) {
                         Text(
                             modifier = Modifier
@@ -100,6 +111,7 @@ fun FactCard(
                             text = factModel.fact,
                             style = MaterialTheme.typography.bodyLarge
                         )
+                        (LocalContext.current as? Activity)?.reportFullyDrawn()
                     }
 
                     Row( modifier = Modifier
