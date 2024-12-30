@@ -18,26 +18,3 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew test --info
-        continue-on-error: true
-
-      - name: Parse Test Results
-        run: |
-          # Locate test result XMLs
-          TEST_RESULT_DIR=$(find . -type d -name "test-results" | head -n 1)
-          echo "Test result directory: $TEST_RESULT_DIR"
-
-          # Parse results and count passed/failed tests
-          if [ -d "$TEST_RESULT_DIR" ]; then
-            TOTAL=$(grep -c '<testcase' $TEST_RESULT_DIR/**/*.xml)
-            FAILED=$(grep -c '<failure' $TEST_RESULT_DIR/**/*.xml)
-            PASSED=$((TOTAL - FAILED))
-
-            echo "Total tests: $TOTAL"
-            echo "Passed tests: $PASSED"
-            echo "Failed tests: $FAILED"
-
-            echo "Test summary: $PASSED/$TOTAL test cases passed."
-          else
-            echo "No test results found."
-            exit 1
-          fi
