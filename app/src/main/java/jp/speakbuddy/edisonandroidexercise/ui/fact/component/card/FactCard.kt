@@ -1,6 +1,7 @@
 package jp.speakbuddy.edisonandroidexercise.ui.fact.component.card
 
 import android.app.Activity
+import android.content.res.Resources.Theme
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -43,6 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import jp.speakbuddy.edisonandroidexercise.R
+import jp.speakbuddy.edisonandroidexercise.ui.theme.CardColor
 import jp.speakbuddy.edisonandroidexercise.usecase.model.FactModelViewDataSource
 import jp.speakbuddy.edisonandroidexercise.usecase.model.LengthInfo
 
@@ -57,7 +59,7 @@ fun FactCard(
         modifier = modifier
             .then(Modifier.size(300.dp, 200.dp)),
         colors = CardColors(
-            containerColor = Color(0xFFF5E1A4),
+            containerColor = CardColor,
             contentColor = Color.Black,
             disabledContainerColor = Color.Gray,
             disabledContentColor = Color.LightGray
